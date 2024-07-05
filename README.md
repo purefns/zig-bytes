@@ -78,8 +78,24 @@
 
 ### Prerequisites
 
-* Zig compiler version `0.13.0`
+#### Zig compiler
 
+You will need to have the Zig compiler installed on your system. The current requred version is `0.13.0`.
+
+You can install Zig via a number of different methods, depending on your OS:
+
+* Linux
+    * [Using your distribution's package manager](https://github.com/ziglang/zig/wiki/Install-Zig-from-a-Package-Manager)
+    * [Using a pre-built binary](https://ziglang.org/download/)
+    * Using the [Nix] package manager
+* Windows
+    * [Using a pre-built binary](https://ziglang.org/download/)
+
+There is also a `flake.nix` that includes a devshell set up with the necessary dependencies. To use it, just run the following:
+
+```bash
+nix develop github:purefns/zig-bytes
+```
 
 
 ### Usage

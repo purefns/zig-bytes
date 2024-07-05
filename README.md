@@ -23,8 +23,6 @@
     The companion project to my Zig Bytes series, available as a standalone set of runnable examples.
     <br />
     <br />
-    <a href="https://github.com/purefns/zig-bytes"><strong>Explore the docs »</strong></a>
-    <br />
     <a href="https://github.com/purefns/zig-bytes/issues/new?template=bug_report.md">Report Bug</a>
     ·
     <a href="https://github.com/purefns/zig-bytes/issues/new?template=feature_request.md">Request Feature</a>

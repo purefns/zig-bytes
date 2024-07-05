@@ -87,7 +87,7 @@ You can install Zig via a number of different methods, depending on your OS:
 * Linux
     * [Using your distribution's package manager](https://github.com/ziglang/zig/wiki/Install-Zig-from-a-Package-Manager)
     * [Using a pre-built binary](https://ziglang.org/download/)
-    * Using the [Nix] package manager
+    * Using the [Nix](https://nixos.org/download) package manager
 * Windows
     * [Using a pre-built binary](https://ziglang.org/download/)
 

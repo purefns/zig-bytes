@@ -85,9 +85,9 @@ You will need to have the Zig compiler installed on your system. The current req
 You can install Zig via a number of different methods, depending on your OS:
 
 * Linux
-    * [Using your distribution's package manager](https://github.com/ziglang/zig/wiki/Install-Zig-from-a-Package-Manager)
-    * [Using a pre-built binary](https://ziglang.org/download/)
-    * Using the [Nix](https://nixos.org/download) package manager
+    * Using [your distribution's package manager](https://github.com/ziglang/zig/wiki/Install-Zig-from-a-Package-Manager)
+    * Using a [pre-built binary](https://ziglang.org/download/)
+    * Using the [Nix package manager](https://nixos.org/download)
 * Windows
     * [Using a pre-built binary](https://ziglang.org/download/)
 

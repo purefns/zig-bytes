@@ -89,7 +89,7 @@ You can install Zig via a number of different methods, depending on your OS:
     * Using a [pre-built binary](https://ziglang.org/download/)
     * Using the [Nix package manager](https://nixos.org/download)
 * Windows
-    * [Using a pre-built binary](https://ziglang.org/download/)
+    * Using a [pre-built binary](https://ziglang.org/download/)
 
 There is also a `flake.nix` that includes a devshell set up with the necessary dependencies. To use it, just run the following:
 

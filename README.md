@@ -185,9 +185,8 @@ Project Link: [https://github.com/purefns/intro-to-zig-examples](https://github.
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* []()
-* []()
-* []()
+* [Ziglings](https://github.com/ratfactor/ziglings) for helping me figure out how to create a custom build step
+* [Best README Template](https://github.com/othneildrew/Best-README-Template) for the amazing template
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

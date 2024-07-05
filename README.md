@@ -115,10 +115,11 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Feature 1
-- [ ] Feature 2
-- [ ] Feature 3
-    - [ ] Nested Feature
+- [ ] Finish each chapter's examples
+    - [ ] Language Basics
+    - [ ] Standard Library
+    - [ ] Build System
+    - [ ] C Interoperability
 
 See the [open issues](https://github.com/purefns/zig-bytes/issues) for a full list of proposed features (and known issues).
 

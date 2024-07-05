@@ -13,20 +13,20 @@
 <div align="center">
   <h3 align="center">Intro To Zig</h3>
 
-  <a href="https://github.com/purefns/intro-to-zig-examples">
+  <a href="https://github.com/purefns/zig-bytes">
     <img src="assets/mascot.png" alt="Logo" width="100" height="120">
   </a>
 
   <br />
   <p align="center">
-    The companion project to my Intro To Zig series, available as a standalone set of runnable examples.
+    The companion project to my Zig Bytes series, available as a standalone set of runnable examples.
     <br />
     <br />
-    <a href="https://github.com/purefns/intro-to-zig-examples"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/purefns/zig-bytes"><strong>Explore the docs »</strong></a>
     <br />
-    <a href="https://github.com/purefns/intro-to-zig-examples/issues/new?template=bug_report.md">Report Bug</a>
+    <a href="https://github.com/purefns/zig-bytes/issues/new?template=bug_report.md">Report Bug</a>
     ·
-    <a href="https://github.com/purefns/intro-to-zig-examples/issues/new?template=feature_request.md">Request Feature</a>
+    <a href="https://github.com/purefns/zig-bytes/issues/new?template=feature_request.md">Request Feature</a>
     <br />
     <br />
     <i>Built with:</i>
@@ -104,7 +104,7 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 - [ ] Feature 3
     - [ ] Nested Feature
 
-See the [open issues](https://github.com/purefns/intro-to-zig-examples/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/purefns/zig-bytes/issues) for a full list of proposed features (and known issues).
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -142,7 +142,7 @@ Distributed under the MIT License. See `LICENSE` for more information.
 
 James Adam - zigisgreat@proton.me
 
-Project Link: [https://github.com/purefns/intro-to-zig-examples](https://github.com/purefns/intro-to-zig-examples)
+Project Link: [https://github.com/purefns/zig-bytes](https://github.com/purefns/zig-bytes)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -160,15 +160,15 @@ Project Link: [https://github.com/purefns/intro-to-zig-examples](https://github.
 
 <!-- MARKDOWN LINKS & IMAGES -->
 <!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[contributors-shield]: https://img.shields.io/github/contributors/purefns/intro-to-zig-examples.svg?style=for-the-badge
-[contributors-url]: https://github.com/purefns/intro-to-zig-examples/graphs/contributors
-[forks-shield]: https://img.shields.io/github/forks/purefns/intro-to-zig-examples.svg?style=for-the-badge
-[forks-url]: https://github.com/purefns/intro-to-zig-examples/network/members
-[stars-shield]: https://img.shields.io/github/stars/purefns/intro-to-zig-examples.svg?style=for-the-badge
-[stars-url]: https://github.com/purefns/intro-to-zig-examples/stargazers
-[issues-shield]: https://img.shields.io/github/issues/purefns/intro-to-zig-examples.svg?style=for-the-badge
-[issues-url]: https://github.com/purefns/intro-to-zig-examples/issues
-[license-shield]: https://img.shields.io/github/license/purefns/intro-to-zig-examples.svg?style=for-the-badge
-[license-url]: https://github.com/purefns/intro-to-zig-examples/blob/master/LICENSE
+[contributors-shield]: https://img.shields.io/github/contributors/purefns/zig-bytes.svg?style=for-the-badge
+[contributors-url]: https://github.com/purefns/zig-bytes/graphs/contributors
+[forks-shield]: https://img.shields.io/github/forks/purefns/zig-bytes.svg?style=for-the-badge
+[forks-url]: https://github.com/purefns/zig-bytes/network/members
+[stars-shield]: https://img.shields.io/github/stars/purefns/zig-bytes.svg?style=for-the-badge
+[stars-url]: https://github.com/purefns/zig-bytes/stargazers
+[issues-shield]: https://img.shields.io/github/issues/purefns/zig-bytes.svg?style=for-the-badge
+[issues-url]: https://github.com/purefns/zig-bytes/issues
+[license-shield]: https://img.shields.io/github/license/purefns/zig-bytes.svg?style=for-the-badge
+[license-url]: https://github.com/purefns/zig-bytes/blob/master/LICENSE
 [youtube-shield]: https://img.shields.io/badge/YouTube_Playlist-grey?style=for-the-badge&logo=youtube&logoColor=red
-[youtube-url]: https://youtube.com/@ZigIsGreat
+[youtube-url]: https://youtube.com/@ZigIsGreat/playlists/

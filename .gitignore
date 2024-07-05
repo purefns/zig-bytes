@@ -1,0 +1,3 @@
+# Zig dirs
+/.zig-cache
+/zig-out

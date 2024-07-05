@@ -103,7 +103,7 @@ nix develop github:purefns/zig-bytes
 Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
 
 <div align="center">
-  <img src="assets/demo.gif" alt="Example GIF" width="50%">
+  <img src="assets/demo.gif" alt="Example GIF" width="80%">
 </div>
 
 _For more examples, please refer to the [Documentation](https://example.com)_

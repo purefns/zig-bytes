@@ -9,6 +9,7 @@
 [![YouTube Playlist][youtube-shield]][youtube-url]
 
 
+<!-- HEADER -->
 <br />
 <div align="center">
   <h3 align="center">Intro To Zig</h3>
@@ -44,7 +45,13 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#prerequisites">Prerequisites</a></li>
+        <li>
+            <a href="#prerequisites">Prerequisites</a>
+            <ul>
+                <li><a href="#clone-the-repo">Clone the repo</a></li>
+                <li><a href="#install-zig">Install Zig</a></li>
+            </ul>
+        </li>
         <li><a href="#usage">Usage</a></li>
       </ul>
     </li>
@@ -68,11 +75,24 @@
 <!-- GETTING STARTED -->
 ## Getting Started
 
+This project currently has support for the following systems:
+
+* Linux
+* Windows
 
 
 ### Prerequisites
 
-#### Zig compiler
+#### Clone the repo
+
+Run the following commands to clone the repository and enter the project directory:
+
+```bash
+git clone https://github.com/purefns/zig-bytes
+cd zig-bytes
+```
+
+#### Install Zig
 
 You will need to have the Zig compiler installed on your system. The current requred version is `0.13.0`.
 
@@ -85,22 +105,24 @@ You can install Zig via a number of different methods, depending on your OS:
 * Windows
     * Using a [pre-built binary](https://ziglang.org/download/)
 
-There is also a `flake.nix` that includes a devshell set up with the necessary dependencies. To use it, just run the following:
+There is also a `flake.nix` that includes a devshell set up with the necessary dependencies. To use it, just run the following command in the project directory:
 
 ```bash
-nix develop github:purefns/zig-bytes
+nix develop
 ```
 
 
 ### Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
+To get started with your first example, just run `zig build`.
+
+To see a full list of valid example names (in order by chapter), run `zig build --help`.
+
+Below is a demo of the default example:
 
 <div align="center">
   <img src="assets/demo.gif" alt="Example GIF" width="80%">
 </div>
-
-_For more examples, please refer to the [Documentation](https://example.com)_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

@@ -42,6 +42,7 @@
     <li>
       <a href="#about-the-project">About The Project</a>
     </li>
+    <li><a href="#compatibility">Compatibility</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
@@ -66,15 +67,17 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
-
-<!-- GETTING STARTED -->
-## Getting Started
+<!-- COMPATIBILITY -->
+## Compatibility
 
 This project currently has support for the following systems:
 
 * Linux
 * Windows
 
+
+<!-- GETTING STARTED -->
+## Getting Started
 
 ### Clone the repo
 

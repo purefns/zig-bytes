@@ -45,13 +45,8 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li>
-            <a href="#prerequisites">Prerequisites</a>
-            <ul>
-                <li><a href="#clone-the-repo">Clone the repo</a></li>
-                <li><a href="#install-zig">Install Zig</a></li>
-            </ul>
-        </li>
+        <li><a href="#clone-the-repo">Clone the repo</a></li>
+        <li><a href="#install-zig">Install Zig</a></li>
         <li><a href="#usage">Usage</a></li>
       </ul>
     </li>
@@ -81,9 +76,7 @@ This project currently has support for the following systems:
 * Windows
 
 
-### Prerequisites
-
-#### Clone the repo
+### Clone the repo
 
 Run the following commands to clone the repository and enter the project directory:
 
@@ -92,7 +85,8 @@ git clone https://github.com/purefns/zig-bytes
 cd zig-bytes
 ```
 
-#### Install Zig
+
+### Install Zig
 
 You will need to have the Zig compiler installed on your system. The current requred version is `0.13.0`.
 

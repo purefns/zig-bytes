@@ -184,9 +184,9 @@ Project Link: [https://github.com/purefns/zig-bytes](https://github.com/purefns/
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-* [Ziglings](https://ziglings.org) for helping me figure out how to create a custom build step ❤️
-* [ZigHelp](https://zighelp.org/) for inspiration on the course layout ❤️
-* [Best README Template](https://github.com/othneildrew/Best-README-Template) for the amazing template ❤️
+❤️ [Ziglings](https://ziglings.org) for helping me figure out how to create a custom build step
+❤️ [ZigHelp](https://zighelp.org/) for inspiration on the course layout
+❤️ [Best README Template](https://github.com/othneildrew/Best-README-Template) for the amazing template
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

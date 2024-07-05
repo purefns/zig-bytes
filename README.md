@@ -34,6 +34,7 @@
     <img src="https://img.shields.io/badge/Nix-5277C3.svg?&logo=NixOS&logoColor=white">
     <img src="https://img.shields.io/badge/Zig-F7A41D?logo=zig&logoColor=fff">
     <br />
+    <br />
   </p>
 </div>
 

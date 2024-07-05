@@ -171,4 +171,4 @@ Project Link: [https://github.com/purefns/zig-bytes](https://github.com/purefns/
 [license-shield]: https://img.shields.io/github/license/purefns/zig-bytes.svg?style=for-the-badge
 [license-url]: https://github.com/purefns/zig-bytes/blob/master/LICENSE
 [youtube-shield]: https://img.shields.io/badge/YouTube_Playlist-grey?style=for-the-badge&logo=youtube&logoColor=red
-[youtube-url]: https://youtube.com/@ZigIsGreat/playlists/
+[youtube-url]: https://youtube.com/playlist?list=PLlpKL2PE4xV-YPcbtiqQoO_kAPEF0Iumf&si=KtC_M7V4BDWVSz1n

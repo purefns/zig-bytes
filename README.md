@@ -12,10 +12,10 @@
 <!-- HEADER -->
 <br />
 <div align="center">
-  <h3 align="center">Intro To Zig</h3>
+  <h3 align="center">Zig Bytes</h3>
 
   <a href="https://github.com/purefns/zig-bytes">
-    <img src="assets/mascot.png" alt="Logo" width="100" height="120">
+    <img src="assets/mascot.png" alt="ZigIsGreat mascot" width="100" height="120">
   </a>
 
   <br />
@@ -37,9 +37,6 @@
 <details>
   <summary>Table of Contents</summary>
   <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
     <li><a href="#compatibility">Compatibility</a></li>
     <li>
       <a href="#getting-started">Getting Started</a>
@@ -59,20 +56,35 @@
 
 
 
-<!-- ABOUT THE PROJECT -->
-## About The Project
-
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
-
-
-
 <!-- COMPATIBILITY -->
 ## Compatibility
 
 This project currently has support for the following systems:
 
-* Linux
-* Windows
+<div align="center">
+  <table>
+    <tr>
+      <th width="200px">OS</th>
+      <th width="200px">Support level</th>
+    </tr>
+    <tr>
+      <td>Linux</td>
+      <td>Full</td>
+    </tr>
+    <tr>
+      <td>Windows</td>
+      <td>Partial</td>
+    </tr>
+    <tr>
+      <td>FreeBSD</td>
+      <td>None yet</td>
+    </tr>
+    <tr>
+      <td>MacOS</td>
+      <td>None yet</td>
+    </tr>
+  </table>
+</div>
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -208,3 +220,4 @@ Project Link: [https://github.com/purefns/zig-bytes](https://github.com/purefns/
 [license-url]: https://github.com/purefns/zig-bytes/blob/master/LICENSE
 [youtube-shield]: https://img.shields.io/badge/YouTube_Playlist-grey?style=for-the-badge&logo=youtube&logoColor=red
 [youtube-url]: https://youtube.com/playlist?list=PLlpKL2PE4xV-YPcbtiqQoO_kAPEF0Iumf&si=KtC_M7V4BDWVSz1n
+

@@ -67,6 +67,7 @@
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 
+
 <!-- COMPATIBILITY -->
 ## Compatibility
 
@@ -74,6 +75,9 @@ This project currently has support for the following systems:
 
 * Linux
 * Windows
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
 
 
 <!-- GETTING STARTED -->

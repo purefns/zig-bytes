@@ -81,7 +81,110 @@ const ExampleStep = struct {
 
         return self;
     }
+
+    fn make(step: *Step, prog_node: std.Progress.Node) !void {
+        const self: *Self = @alignCast(@fieldParentPtr("step", step));
+
+        const exe_path = try self.compile(prog_node);
+        const result = try self.run(exe_path.?);
+
+        printResult(&result);
+    }
+
+    fn compile(self: *Self, prog_node: std.Progress.Node) !?[]const u8 {
+        const b = self.step.owner;
+        const example = self.example;
+
+        const cmd = example.getZigCmd();
+        const src_path = example.getPath();
+        const src_display = example.getDisplayName();
+        const target = example.getZigTriple();
+        const optimize = example.getOptimizeModeStr();
+
+        var argv = std.ArrayList([]const u8).init(self.allocator);
+        defer argv.deinit();
+
+        argv.appendSlice(&.{
+            b.graph.zig_exe,
+            cmd,
+            src_path,
+            "-target",
+            target,
+            "-O",
+            optimize,
+            "--listen=-",
+        }) catch @panic("OOM");
+
+        if (example.extra_args) |args| argv.appendSlice(args) catch @panic("OOM");
+
+        const fmt =
+            \\{s}Running Zig process:{s}
+            \\
+            \\  Zig path:  {s}
+            \\  Command:   {s}
+            \\  Source:    {s}
+            \\  Target:    {s}
+            \\  Mode:      {s}
+            \\  Flags:     
+        ;
+        print(fmt, .{ bold_ul, reset, b.graph.zig_exe, cmd, src_display, target, optimize });
+        for (argv.items[7..]) |arg| print("{s} ", .{arg});
+        if (example.extra_args) |args| {
+            for (args) |arg| print("{s} ", .{arg});
+        }
+        print("\n\n\n", .{});
+
+        return try self.step.evalZigProcess(argv.items, prog_node);
+    }
+
+    fn run(self: *Self, exe_path: []const u8) !Child.RunResult {
+        // Allow 1MB of stdout capture
+        const max_output_bytes = 1 * 1024 * 1024;
+
+        return Child.run(.{
+            .allocator = self.allocator,
+            .argv = &.{exe_path},
+            .max_output_bytes = max_output_bytes,
+        }) catch |err| {
+            return self.step.fail("unable to spawn {s}: {s}", .{ exe_path, @errorName(err) });
+        };
+    }
+
+    fn printResult(result: *const Child.RunResult) void {
+        const default = "No content.\n";
+        const stderr = if (result.stderr.len > 0) result.stderr else default;
+        const stdout = if (result.stdout.len > 0) result.stdout else default;
+
+        printStdio(stderr, stdout);
+    }
+
+    fn printStdio(stderr: []const u8, stdout: []const u8) void {
+        if (std.io.getStdErr().getOrEnableAnsiEscapeSupport()) setColors();
+
+        print(
+            "{s}Debug Logs ({s}stderr{s}):{s}\n\n{s}\n\n",
+            .{ bold_ul, fg_red, fg_gray, reset, stderr },
+        );
+        print(
+            "{s}Program Output ({s}stdout{s}):{s}\n\n{s}\n",
+            .{ bold_ul, fg_green, fg_gray, reset, stdout },
+        );
+    }
+
+    fn setColors() void {
+        reset = "\x1b[0m";
+        bold_ul = "\x1b[1;4m";
+        fg_red = "\x1b[31m";
+        fg_green = "\x1b[32m";
+        fg_gray = "\x1b[37m";
+    }
 };
+
+var reset: []const u8 = "";
+var bold_ul: []const u8 = "";
+var fg_red: []const u8 = "";
+var fg_green: []const u8 = "";
+var fg_gray: []const u8 = "";
 
 const Chapters = [_]type{
     LanguageBasics,
@@ -242,5 +345,33 @@ const Example = struct {
             }
         }
         unreachable;
+    }
+
+    fn getZigCmd(self: Self) []const u8 {
+        return switch (self.kind) {
+            .exe => "build-exe",
+            .@"test" => "test",
+        };
+    }
+
+    /// Returns an absolute path.
+    /// Intended to be used during the make phase only.
+    fn getPath(self: Self) []const u8 {
+        return self.root_source_file.getPath(self.builder);
+    }
+
+    /// Returns the string that can be shown to represent the source.
+    /// Either returns the path, "generated", or "dependency".
+    fn getDisplayName(self: Self) []const u8 {
+        return self.root_source_file.getDisplayName();
+    }
+
+    /// Returns the string representation of the `target` field in the Zig format.
+    fn getZigTriple(self: Self) []const u8 {
+        return self.target.result.zigTriple(self.builder.allocator) catch @panic("OOM");
+    }
+
+    fn getOptimizeModeStr(self: Self) []const u8 {
+        return @tagName(self.optimize);
     }
 };

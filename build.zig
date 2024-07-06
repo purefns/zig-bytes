@@ -15,6 +15,25 @@ const Child = std.process.Child;
 
 const print = std.debug.print;
 
+comptime {
+    // NOTE: keep this in sync with 'flake.nix'
+    const required_zig = "0.13.0";
+    const current_zig = builtin.zig_version;
+    const min_zig = std.SemanticVersion.parse(required_zig) catch unreachable;
+    if (current_zig.order(min_zig) == .lt) {
+        const error_message =
+            \\Sorry, it looks like your version of Zig is too old... :(
+            \\
+            \\This repository requires version {} or higher.
+            \\
+            \\Please update your installed version via your system package manager.
+            \\
+            \\
+        ;
+        @compileError(std.fmt.comptimePrint(error_message, .{min_zig}));
+    }
+}
+
 pub fn build(b: *Build) !void {
     // remove the standard 'install' and 'uninstall' steps
     b.top_level_steps = .{};

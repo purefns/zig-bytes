@@ -149,6 +149,10 @@ Below is a demo of the default example:
     - [ ] Standard Library
     - [ ] Build System
     - [ ] C Interoperability
+- [ ] Finish adding OS support
+    - [ ] Windows ([#2](https://github.com/purefns/zig-bytes/issues/2))
+    - [ ] FreeBSD ([#3](https://github.com/purefns/zig-bytes/issues/3))
+    - [ ] MacOS ([#4](https://github.com/purefns/zig-bytes/issues/4))
 
 See the [open issues](https://github.com/purefns/zig-bytes/issues) for a full list of proposed features (and known issues).
 

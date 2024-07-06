@@ -125,9 +125,11 @@ nix develop
 
 ### Usage
 
-To get started with your first example, just run `zig build`.
+To get started with the first example just run `zig build`.
 
-To see a full list of valid example names (in order by chapter), run `zig build --help`.
+To run a specific example use the `-Dexample=[NAME]` flag, i.e. `zig build -Dexample=assignment`.
+
+To see the full list of valid example names (in order by chapter) run `zig build --help`.
 
 Below is a demo of the default example:
 

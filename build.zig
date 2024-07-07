@@ -309,6 +309,7 @@ const Example = struct {
             .functions, // 06
             .@"defer", // 07
             .errors, // 08
+            .@"switch", // 09
             => {
                 self.kind = .@"test";
             },

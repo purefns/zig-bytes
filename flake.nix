@@ -1,5 +1,5 @@
 {
-  description = "A collection of runnable Zig examples, used as the companion to 'Intro To Zig'.";
+  description = "A collection of runnable Zig examples, used as the companion to the 'Zig Bytes' series.";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";

@@ -282,7 +282,7 @@ const Example = struct {
     builder: *Build,
     allocator: Allocator,
     selection: Selection,
-    kind: Kind = .exe,
+    kind: Kind = .@"test",
 
     root_source_file: LazyPath,
     target: Build.ResolvedTarget,
@@ -304,26 +304,24 @@ const Example = struct {
 
         switch (self.selection) {
             // Examples from: 01 Language Basics/
-            .if_statement, // 03
-            .while_loop, // 04
-            .functions, // 06
-            .@"defer", // 07
-            .errors, // 08
-            .@"switch", // 09
+            .assignment, // 01
+            .arrays, // 02
             => {
-                self.kind = .@"test";
+                self.kind = .exe;
             },
             // Examples from: 03 Build System/
             .emit_an_executable => { // 01
+                self.kind = .exe;
                 self.optimize = OptimizeMode.ReleaseSafe;
                 self.extra_args = &.{ "-fstrip", "-fsingle-threaded" };
             },
             .cross_compilation => { // 02
+                self.kind = .exe;
                 self.target = b.resolveTargetQuery(.{
                     .cpu_arch = .aarch64,
                 });
             },
-            // Everything else is assumed to be an executable with the standard options.
+            // Everything else is assumed to be a test with the standard options.
             else => {},
         }
 

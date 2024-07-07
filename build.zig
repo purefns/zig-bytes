@@ -307,6 +307,8 @@ const Example = struct {
             .if_statement, // 03
             .while_loop, // 04
             .functions, // 06
+            .@"defer", // 07
+            .errors, // 08
             => {
                 self.kind = .@"test";
             },

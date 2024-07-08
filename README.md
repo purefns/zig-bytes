@@ -111,18 +111,23 @@ cd zig-bytes
 
 ### Install Zig
 
-You will need to have the Zig compiler installed on your system. The current requred version is `0.13.0`.
+You will need to have the Zig compiler installed on your system.
 
-You can install Zig via a number of different methods, depending on your OS:
+<!-- KEEP THIS IN-SYNC WITH BUILD.ZIG AND FLAKE.NIX -->
+**The current requred version is `0.13.0`.**
 
-* Linux
-    * Using [your distribution's package manager](https://github.com/ziglang/zig/wiki/Install-Zig-from-a-Package-Manager)
-    * Using a [pre-built binary](https://ziglang.org/download/)
-    * Using the [Nix package manager](https://nixos.org/download)
-* Windows
-    * Using a [pre-built binary](https://ziglang.org/download/)
+You can install it via a number of different methods, with availability depending on your OS:
 
-There is also a `flake.nix` that includes a devshell set up with the necessary dependencies. To use it, just run the following command in the project directory:
+* Using a [pre-built binary](https://ziglang.org/download/)
+    - This is the recommended option for most people. Make sure to download the correct option for your operating system
+      and CPU architecture.
+* Using [a package manager](https://github.com/ziglang/zig/wiki/Install-Zig-from-a-Package-Manager)
+    - This can be fine if your distribution/package manager's repositories are up-to-date, but a majority of them are not.
+      This is likely due to the fast development speed of Zig - if you have a compatible version available to install,
+      please feel free to do so.
+
+There is also a `flake.nix` available that includes a devshell set up with the necessary dependencies.
+To use it, just run the following command in the project directory:
 
 ```bash
 nix develop

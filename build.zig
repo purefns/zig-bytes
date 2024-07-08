@@ -372,6 +372,7 @@ const Example = struct {
         return self.target.result.zigTriple(self.builder.allocator) catch @panic("OOM");
     }
 
+    /// Returns the string representation of the `optimize` field.
     fn getOptimizeModeStr(self: Self) []const u8 {
         return @tagName(self.optimize);
     }

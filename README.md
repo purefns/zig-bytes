@@ -61,6 +61,7 @@
 
 This project currently has support for the following systems:
 
+<br />
 <div align="center">
   <table>
     <tr>
@@ -86,7 +87,13 @@ This project currently has support for the following systems:
   </table>
   <br />
   <sub>
-    <b>Note:</b> This repository is currently a work-in-progress and probably has bugs and missing sections.
+    <b>Note:</b>
+    This is the <code>main</code> branch, which means there are probably bugs and missing sections.
+    <br />
+    This repository as a whole is also currently unfinished, which will likely make these issues worse.
+    <br />
+    <b>Please keep these things in mind when reporting bugs or other issues.</b>
+    <br />
     <br />
     A tagged release for Zig version <code>0.13.0</code> is currently being worked on.
   </sub>

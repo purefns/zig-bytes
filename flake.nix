@@ -25,18 +25,6 @@
         {
           devShells.default = pkgs.mkShell {
             packages = [ zig ];
-            shellHook = ''
-              echo '
-              To quickly get started with the default example, just run:
-
-                  zig build
-              '
-
-              # spawn subshell and clean up caches after
-              ${lib.getExe pkgs.bashInteractive}
-              rm -rf .zig-cache
-              exit
-            '';
           };
         };
     };

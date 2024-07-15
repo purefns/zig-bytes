@@ -18,13 +18,12 @@
 
       perSystem =
         { lib, pkgs, ... }:
-        let
-          # NOTE: keep this in sync with 'build.zig'
-          zig = pkgs.zig_0_13;
-        in
         {
           devShells.default = pkgs.mkShell {
-            packages = [ zig ];
+            packages = with pkgs; [
+              # NOTE: keep this in sync with 'build.zig'
+              zig_0_13
+            ];
           };
         };
     };

@@ -1,0 +1,21 @@
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  compare_versions:
+    name: Compare Zig versions between `build.zig` and `flake.nix`
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@v11
+      - shell: bash
+        run: |
+          sudo apt install -y ripgrep
+          build_zig_version="$(rg 'required_zig = "(.*)"' -Nor '$1' ./build.zig)"
+          flake_zig_version="$(nix develop --command zig version)"
+          if [[ "$build_zig_version" != "flake_zig_version" ]]; then
+            exit 1
+          fi

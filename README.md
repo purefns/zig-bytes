@@ -120,7 +120,7 @@ cd zig-bytes
 
 You will need to have the Zig compiler installed on your system.
 
-<!-- KEEP THIS IN-SYNC WITH BUILD.ZIG AND FLAKE.NIX -->
+<!-- RENOVATE -->
 **The current requred version is `0.13.0`.**
 
 You can install it via a number of different methods, with availability depending on your OS:

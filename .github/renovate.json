@@ -12,12 +12,14 @@
   "customManagers": [
     {
       "customType": "regex",
-      "description": "Update Zig compiler version in build.zig",
+      "description": "Update Zig compiler version in various places",
       "fileMatch": [
-        "^build.zig$"
+        "^build.zig$",
+        "^README.md$"
       ],
       "matchStrings": [
-        "const required_zig = \"(?<currentValue>.*?)\";\\n"
+        "const required_zig = \"(?<currentValue>.*?)\";\\s",
+        "<!-- RENOVATE -->\\s.*`(?<currentValue>.*?)`"
       ],
       "datasourceTemplate": "github-releases",
       "packageNameTemplate": "ziglang/zig",

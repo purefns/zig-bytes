@@ -1,0 +1,29 @@
+on:
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+jobs:
+  compare_versions:
+    name: Compare Zig versions between `build.zig` and `flake.nix`
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: DeterminateSystems/nix-installer-action@v12
+      - uses: DeterminateSystems/magic-nix-cache-action@v7
+      - name: Compare Zig versions
+        shell: bash
+        run: |
+          sudo apt install -y ripgrep
+
+          build_zig_version="$(rg 'required_zig = "(.*)"' -Nor '$1' ./build.zig)"
+          flake_zig_version="$(nix develop --command zig version)"
+
+          if [[ "$build_zig_version" != "$flake_zig_version" ]]; then
+            printf 'FATAL: Zig versions are mismatched!\n\nbuild.zig: %s\nflake.nix: %s\n' \
+              "$build_zig_version" "$flake_zig_version"
+            exit 1
+          else
+            echo "Zig versions are synced. Exiting."
+            exit 0
+          fi

@@ -86,7 +86,15 @@ const ExampleStep = struct {
         const self: *Self = @alignCast(@fieldParentPtr("step", step));
 
         const exe_path = try self.compile(prog_node);
-        const result = try self.run(exe_path.?);
+        const result = if (self.example.run_step_cmd) |cmd|
+            try self.run(&.{
+                "bash",
+                "-c",
+                cmd,
+                exe_path.?,
+            })
+        else
+            try self.run(&.{exe_path.?});
 
         printResult(&result);
     }
@@ -154,16 +162,16 @@ const ExampleStep = struct {
         return try self.step.evalZigProcess(argv.items, prog_node);
     }
 
-    fn run(self: *Self, exe_path: []const u8) !Child.RunResult {
+    fn run(self: *Self, argv: []const []const u8) !Child.RunResult {
         // Allow 1MB of stdout capture
         const max_output_bytes = 1 * 1024 * 1024;
 
         return Child.run(.{
             .allocator = self.allocator,
-            .argv = &.{exe_path},
+            .argv = argv,
             .max_output_bytes = max_output_bytes,
         }) catch |err| {
-            return self.step.fail("unable to spawn {s}: {s}", .{ exe_path, @errorName(err) });
+            return self.step.fail("unable to spawn {s}: {s}", .{ argv[0], @errorName(err) });
         };
     }
 
@@ -305,6 +313,7 @@ const Example = struct {
     target: Build.ResolvedTarget,
     optimize: OptimizeMode,
     extra_args: ?[]const []const u8 = null,
+    run_step_cmd: ?[]const u8 = null,
 
     const Self = @This();
 
@@ -337,6 +346,10 @@ const Example = struct {
                 self.target = b.resolveTargetQuery(.{
                     .cpu_arch = .aarch64,
                 });
+                self.run_step_cmd = switch (builtin.os.tag) {
+                    .freebsd, .linux => "set -x; readelf -h \"$0\"",
+                    else => @panic("Not implemented"),
+                };
             },
             // Everything else is assumed to be a test with the standard options.
             else => {},

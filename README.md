@@ -162,11 +162,7 @@ Below is a demo of the default example:
 <!-- ROADMAP -->
 ## Roadmap
 
-- [ ] Finish each chapter's examples
-    - [ ] Language Basics
-    - [ ] Standard Library
-    - [ ] Build System
-    - [ ] C Interoperability
+- [ ] Finish each chapter's examples ([#18](https://github.com/purefns/zig-bytes/issues/18))
 - [ ] Finish adding OS support
     - [ ] Windows ([#2](https://github.com/purefns/zig-bytes/issues/2))
     - [ ] FreeBSD ([#3](https://github.com/purefns/zig-bytes/issues/3))

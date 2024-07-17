@@ -145,7 +145,6 @@ const ExampleStep = struct {
             \\  Flags:     
         ;
         print(fmt, .{ bold_ul, reset, b.graph.zig_exe, cmd, src_display, target, optimize });
-        for (argv.items[7..]) |arg| print("{s} ", .{arg});
         if (example.extra_args) |args| {
             for (args) |arg| print("{s} ", .{arg});
         }

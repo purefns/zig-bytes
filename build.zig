@@ -86,15 +86,7 @@ const ExampleStep = struct {
         const self: *Self = @alignCast(@fieldParentPtr("step", step));
 
         const exe_path = try self.compile(prog_node);
-        const result = if (self.example.run_step_cmd) |cmd|
-            try self.run(&.{
-                "bash",
-                "-c",
-                cmd,
-                exe_path.?,
-            })
-        else
-            try self.run(&.{exe_path.?});
+        const result = try self.run(&.{exe_path.?});
 
         printResult(&result);
     }
@@ -162,7 +154,13 @@ const ExampleStep = struct {
         return try self.step.evalZigProcess(argv.items, prog_node);
     }
 
-    fn run(self: *Self, argv: []const []const u8) !Child.RunResult {
+    fn run(self: *Self, exe_path: []const u8) !Child.RunResult {
+        const argv = if (self.example.run_step_cmd) |cmd|
+            // pass in the exe path as argv0
+            &.{ "bash", "-c", cmd, exe_path }
+        else
+            &.{exe_path};
+
         // Allow 1MB of stdout capture
         const max_output_bytes = 1 * 1024 * 1024;
 

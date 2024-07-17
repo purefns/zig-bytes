@@ -44,6 +44,22 @@ pub fn build(b: *Build) !void {
     const example_run = ExampleStep.create(b);
     b.default_step.dependOn(&example_run.step);
 
+    // zig build test
+    const test_step = b.step("test", "Run all examples");
+    inline for (std.meta.fields(Selection)) |selection| {
+        // this fixes `panic: Option 'target' declared twice`
+        b.available_options_map.clearRetainingCapacity();
+
+        const example = Example.init(b, @enumFromInt(selection.value));
+        const test_run = b.addTest(.{
+            .name = "example test",
+            .target = example.target,
+            .root_source_file = example.root_source_file,
+        });
+        print("Compiling {s}\n", .{example.root_source_file.getDisplayName()});
+        test_step.dependOn(&test_run.step);
+    }
+
     // zig build clean
     const clean_step = b.step("clean", "Clean temporary directories");
     if (builtin.os.tag != .windows) {

@@ -115,6 +115,23 @@ const ExampleStep = struct {
             "--listen=-",
         }) catch @panic("OOM");
 
+        // NOTE: Remove this when Zig ships with FreeBSD's libc.
+        // Manually provide libc paths for FreeBSD targets.
+        if (builtin.os.tag == .freebsd) {
+            var child = Child.init(&.{ b.graph.zig_exe, "libc" }, b.allocator);
+            child.stdout_behavior = .Pipe;
+
+            _ = try child.spawn();
+
+            // dupe the stdout fd so we have an open one after 'child.wait()'
+            const fd = try std.posix.dup(child.stdout.?.handle);
+
+            _ = try child.wait();
+
+            const fd_path = b.fmt("/dev/fd/{d}", .{fd});
+            argv.appendSlice(&.{ "--libc", fd_path }) catch @panic("OOM");
+        }
+
         if (example.extra_args) |args| argv.appendSlice(args) catch @panic("OOM");
 
         const fmt =

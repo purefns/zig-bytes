@@ -56,7 +56,6 @@ pub fn build(b: *Build) !void {
             .target = example.target,
             .root_source_file = example.root_source_file,
         });
-        print("Compiling {s}\n", .{example.root_source_file.getDisplayName()});
         test_step.dependOn(&test_run.step);
     }
 

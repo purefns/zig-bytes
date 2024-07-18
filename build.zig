@@ -173,7 +173,11 @@ const ExampleStep = struct {
         var argv: []const []const u8 = undefined;
         if (self.example.run_step_cmd) |cmd|
             // pass in the exe path as argv0
-            argv = &.{ "bash", "-c", cmd, exe_path }
+            argv = switch (builtin.os.tag) {
+                .freebsd, .linux, .macos => &.{ "bash", "-c", cmd, exe_path },
+                .windows => &.{ "powershell", cmd, exe_path },
+                else => @panic("Not implemented."),
+            }
         else
             argv = &.{exe_path};
 
@@ -361,7 +365,8 @@ const Example = struct {
                     .cpu_arch = .aarch64,
                 });
                 self.run_step_cmd = switch (builtin.os.tag) {
-                    .freebsd, .linux => "set -x; readelf -h \"$0\"",
+                    .freebsd, .linux, .macos => "set -x; file \"$0\"",
+                    .windows => "#",
                     else => @panic("Not implemented"),
                 };
             },

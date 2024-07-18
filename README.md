@@ -74,15 +74,15 @@ This project currently has support for the following systems:
     </tr>
     <tr>
       <td>Windows</td>
-      <td>Untested</td>
+      <td>WIP</td>
     </tr>
     <tr>
       <td>FreeBSD</td>
-      <td>Untested</td>
+      <td>WIP</td>
     </tr>
     <tr>
       <td>MacOS</td>
-      <td>Untested</td>
+      <td>WIP</td>
     </tr>
   </table>
   <br />

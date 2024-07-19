@@ -169,12 +169,18 @@ const ExampleStep = struct {
     }
 
     fn run(self: *Self, exe_path: []const u8) !Child.RunResult {
+        const b = self.step.owner;
+
         var argv: []const []const u8 = undefined;
         if (self.example.run_step_cmd) |cmd|
-            // pass in the exe path as argv0
-            argv = switch (builtin.os.tag) {
-                .freebsd, .linux, .macos => &.{ "bash", "-c", cmd, exe_path },
-                .windows => &.{ "powershell", cmd, exe_path },
+            switch (builtin.os.tag) {
+                .freebsd, .linux, .macos => {
+                    argv = &.{ "bash", "-c", cmd, exe_path };
+                },
+                .windows => {
+                    const cmd_fmt = b.fmt("& {{& '{s}' \"{s}\"}}", .{ cmd, exe_path });
+                    argv = &.{ "powershell", "-Command", cmd_fmt };
+                },
                 else => @panic("Not implemented."),
             }
         else
@@ -363,10 +369,18 @@ const Example = struct {
                 self.target = b.resolveTargetQuery(.{
                     .cpu_arch = .aarch64,
                 });
-                self.run_step_cmd = switch (builtin.os.tag) {
-                    .freebsd, .linux, .macos => "set -x; file \"$0\"",
-                    .windows => "#",
-                    else => @panic("Not implemented"),
+                self.run_step_cmd = blk: {
+                    switch (builtin.os.tag) {
+                        .freebsd, .linux, .macos => {
+                            break :blk "set -x; file \"$0\"";
+                        },
+                        .windows => {
+                            const env = "PROGRAMFILES";
+                            const prefix = std.process.getEnvVarOwned(b.allocator, env) catch @panic("OOM");
+                            break :blk b.fmt("{s}\\Git\\usr\\bin\\file", .{prefix});
+                        },
+                        else => @panic("Not implemented"),
+                    }
                 };
             },
             // Everything else is assumed to be a test with the standard options.

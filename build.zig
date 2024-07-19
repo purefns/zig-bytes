@@ -130,9 +130,12 @@ const ExampleStep = struct {
             "--listen=-",
         }) catch @panic("OOM");
 
-        // NOTE: Remove this when Zig ships with FreeBSD's libc.
-        // Manually provide libc paths for FreeBSD targets.
-        if (builtin.os.tag == .freebsd) {
+        // Use the provided libc file (if applicable),
+        if (b.libc_file) |libc_file| {
+            argv.appendSlice(&.{ "--libc", libc_file }) catch @panic("OOM");
+        }
+        // or manually provide it for FreeBSD targets.
+        else if (builtin.os.tag == .freebsd) {
             var child = Child.init(&.{ b.graph.zig_exe, "libc" }, b.allocator);
             child.stdout_behavior = .Pipe;
 

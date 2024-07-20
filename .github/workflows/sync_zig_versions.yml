@@ -5,7 +5,7 @@ on:
   workflow_dispatch:
 jobs:
   compare_versions:
-    name: Compare Zig versions between `build.zig` and `flake.nix`
+    name: Sync Zig versions across codebase
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4

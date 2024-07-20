@@ -380,7 +380,7 @@ const Example = struct {
                         .windows => {
                             const env = "PROGRAMFILES";
                             const prefix = std.process.getEnvVarOwned(b.allocator, env) catch @panic("OOM");
-                            break :blk b.fmt("{s}\\Git\\usr\\bin\\file", .{prefix});
+                            break :blk b.pathJoin(&.{ prefix, "Git", "usr", "bin", "file" });
                         },
                         else => @panic("Not implemented"),
                     }

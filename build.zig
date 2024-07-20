@@ -168,7 +168,7 @@ const ExampleStep = struct {
         }
         print("\n\n\n", .{});
 
-        return try self.step.evalZigProcess(argv.items, prog_node);
+        return self.step.evalZigProcess(argv.items, prog_node);
     }
 
     fn run(self: *Self, exe_path: []const u8) !Child.RunResult {

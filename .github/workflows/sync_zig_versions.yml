@@ -16,12 +16,18 @@ jobs:
         run: |
           sudo apt install -y ripgrep
 
-          build_zig_version="$(rg 'required_zig = "(.*)"' -Nor '$1' ./build.zig)"
-          flake_zig_version="$(nix develop --command zig version)"
+          build_version="$(rg 'required_zig = "(.*)"' -Nor '$1' ./build.zig)"
+          flake_version="$(nix develop --command zig version)"
+          tests_version="$(rg 'version: (.*)' -Nor '$1' ./.github/workflows/zig_tests.yml)"
 
-          if [[ "$build_zig_version" != "$flake_zig_version" ]]; then
-            printf 'FATAL: Zig versions are mismatched!\n\nbuild.zig: %s\nflake.nix: %s\n' \
-              "$build_zig_version" "$flake_zig_version"
+          if [[
+            "$build_version" != "$flake_version" ||
+            "$build_version" != "$tests_version"
+          ]]; then
+            printf 'FATAL: Zig versions are mismatched!\n\n'
+            printf 'build.zig:     %s\n' "$build_version"
+            printf 'flake.nix:     %s\n' "$flake_version"
+            printf 'zig_tests.yml: %s\n' "$tests_version"
             exit 1
           else
             echo "Zig versions are synced. Exiting."

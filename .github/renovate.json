@@ -15,11 +15,13 @@
       "description": "Update Zig compiler version in various places",
       "fileMatch": [
         "^build.zig$",
-        "^README.md$"
+        "^README.md$",
+        ".*/zig_tests.yml$"
       ],
       "matchStrings": [
         "const required_zig = \"(?<currentValue>.*?)\";\\s",
-        "<!-- RENOVATE -->\\s.*`(?<currentValue>.*?)`"
+        "<!-- RENOVATE -->\\s.*`(?<currentValue>.*?)`",
+        "version: (?<currentValue>.*?)\\s"
       ],
       "datasourceTemplate": "github-releases",
       "packageNameTemplate": "ziglang/zig",

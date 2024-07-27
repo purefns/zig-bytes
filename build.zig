@@ -49,6 +49,7 @@ pub fn build(b: *Build) !void {
     inline for (std.meta.fields(Selection)) |selection| {
         // this fixes `panic: Option 'target' declared twice`
         b.available_options_map.clearRetainingCapacity();
+        b.available_options_list.clearRetainingCapacity();
 
         const example = Example.init(b, @enumFromInt(selection.value));
         const test_run = b.addTest(.{

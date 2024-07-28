@@ -358,7 +358,6 @@ const Example = struct {
         switch (self.selection) {
             // Examples from: 01 Language Basics/
             .assignment, // 01
-            .arrays, // 02
             => {
                 self.kind = .exe;
             },

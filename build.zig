@@ -248,7 +248,7 @@ const Chapters = [_]type{
 const LanguageBasics = enum {
     assignment,
     arrays,
-    if_statement,
+    @"if",
     while_loop,
     for_loop,
     functions,

@@ -1,39 +1,35 @@
 const std = @import("std");
-const expect = std.testing.expect;
+const expectEqual = std.testing.expectEqual;
 
 test "while" {
     var a: u16 = 2;
-    while (a < 100) {
-        a *= a;
+    while (a < 8) {
+        a *= 2;
     }
-    try expect(a == 256);
-}
-
-test "while with continue expression" {
-    var sum: u16 = 0;
-    var i: u8 = 1;
-    while (i <= 42) : (i += 1) {
-        sum += i;
-    }
-    try expect(sum == 903);
-}
-
-test "while with continue keyword" {
-    var sum: u16 = 0;
-    var i: u8 = 1;
-    while (i <= 42) : (i += 1) {
-        if (i == 10) continue;
-        sum += i;
-    }
-    try expect(sum == 893);
+    try expectEqual(8, a);
 }
 
 test "while with break keyword" {
-    var sum: u16 = 0;
-    var i: u8 = 1;
-    while (i <= 42) : (i += 1) {
-        if (i == 10) break;
-        sum += i;
+    var b: u8 = 1;
+    while (true) {
+        if (b == 16) break;
+        b *= 2;
     }
-    try expect(sum == 45);
+    try expectEqual(16, b);
+}
+
+test "while with continue keyword" {
+    var c: u8 = 1;
+    while (true) {
+        c *= 2;
+        if (c <= 16) continue;
+        break;
+    }
+    try expectEqual(32, c);
+}
+
+test "while with continue expression" {
+    var d: u8 = 1;
+    while (d <= 32) : (d *= 2) {}
+    try expectEqual(64, d);
 }

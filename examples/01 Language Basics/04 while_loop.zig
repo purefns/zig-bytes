@@ -1,4 +1,5 @@
 const std = @import("std");
+const expect = std.testing.expect;
 const expectEqual = std.testing.expectEqual;
 
 test "while" {
@@ -32,6 +33,30 @@ test "while with continue expression" {
     var d: u8 = 1;
     while (d < 32) : (d *= 2) {}
     try expectEqual(32, d);
+}
+
+test "while with crazier continue expression" {
+    var e: u8 = 1;
+    var f: u8 = 1;
+    while (e + f < 64) : ({
+        e *= 2;
+        f *= 2;
+    }) {}
+    try expectEqual(64, e + f);
+}
+
+test "while expression" {
+    try expect(rangeHasNumber(0, 10, 5));
+    try expect(!rangeHasNumber(0, 10, 15));
+}
+
+fn rangeHasNumber(begin: usize, end: usize, number: usize) bool {
+    var cur = begin;
+    return while (cur < end) : (cur += 1) {
+        if (cur == number) {
+            break true;
+        }
+    } else false;
 }
 
 test "labelled while" {

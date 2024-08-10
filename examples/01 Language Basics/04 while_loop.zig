@@ -2,36 +2,36 @@ const std = @import("std");
 const expectEqual = std.testing.expectEqual;
 
 test "while" {
-    var a: u16 = 2;
-    while (a < 8) {
+    var a: u16 = 1;
+    while (a < 4) {
         a *= 2;
     }
-    try expectEqual(8, a);
+    try expectEqual(4, a);
 }
 
 test "while with break keyword" {
     var b: u8 = 1;
     while (true) {
-        if (b == 16) break;
+        if (b == 8) break;
         b *= 2;
     }
-    try expectEqual(16, b);
+    try expectEqual(8, b);
 }
 
 test "while with continue keyword" {
     var c: u8 = 1;
     while (true) {
         c *= 2;
-        if (c <= 16) continue;
+        if (c < 16) continue;
         break;
     }
-    try expectEqual(32, c);
+    try expectEqual(16, c);
 }
 
 test "while with continue expression" {
     var d: u8 = 1;
-    while (d <= 32) : (d *= 2) {}
-    try expectEqual(64, d);
+    while (d < 32) : (d *= 2) {}
+    try expectEqual(32, d);
 }
 
 test "labelled while" {
@@ -43,40 +43,39 @@ test "labelled while" {
     }
 
     // Example of a nested continue:
-    var e: u8 = 1;
-    outer: while (e <= 64) : (e *= 2) {
+    var g: u8 = 1;
+    outer: while (g < 128) : (g *= 2) {
         while (true) {
             continue :outer;
         }
     }
-    try expectEqual(128, e);
+    try expectEqual(128, g);
 }
 
 test "while with optionals" {
-    var f: u8 = 0;
+    var h: u8 = 0;
     items_left = 4;
     while (eventuallyNullSequence()) |value| {
-        f += value;
+        h += value;
     }
-    try expectEqual(6, f);
+    try expectEqual(6, h);
 
     // null capture with an else block
-    var g: u8 = 0;
+    var i: u8 = 0;
     items_left = 4;
     while (eventuallyNullSequence()) |value| {
-        g += value;
+        i += value;
     } else {
-        try expectEqual(6, g);
+        try expectEqual(6, i);
     }
 
     // null capture with a continue expression
-    var h: u8 = 0;
-    var count: u8 = 0;
+    var j: u8 = 0;
     items_left = 4;
-    while (eventuallyNullSequence()) |value| : (count += 1) {
-        h += value;
+    while (eventuallyNullSequence()) |value| : (j += 1) {
+        j += value;
     }
-    try expectEqual(4, count);
+    try expectEqual(10, j);
 }
 
 var items_left: u8 = undefined;
@@ -88,10 +87,10 @@ fn eventuallyNullSequence() ?u8 {
 }
 
 test "while with error unions" {
-    var i: u8 = 0;
+    var k: u8 = 0;
     items_left = 4;
     while (eventuallyErrorSequence()) |value| {
-        i += value;
+        k += value;
     } else |err| {
         try expectEqual(error.OutOfItems, err);
     }
@@ -104,12 +103,16 @@ fn eventuallyErrorSequence() !u8 {
     };
 }
 
+// NOTE: It's recommended to only `inline` loops for one of two reasons:
+//       - You need the loop to execute at comptime for the semantics to work.
+//       - You have a benchmark to prove that doing so is measurably faster.
+
 test "inline while" {
-    comptime var i: u8 = 0;
+    comptime var l: u8 = 0;
     var sum: usize = 0;
-    inline while (i < 3) : (i += 1) {
+    inline while (l < 3) : (l += 1) {
         // Types can be used as first-class values now!
-        const T = switch (i) {
+        const T = switch (l) {
             0 => u65535,
             1 => comptime_int,
             2 => anyopaque,
@@ -119,7 +122,3 @@ test "inline while" {
     }
     try expectEqual(27, sum);
 }
-
-// NOTE: It's recommended to only `inline` loops for one of two reasons:
-//       - You need the loop to execute at comptime for the semantics to work.
-//       - You have a benchmark to prove that doing so is measurably faster.

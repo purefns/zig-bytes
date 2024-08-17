@@ -1,113 +1,97 @@
 const std = @import("std");
 const expectEqual = std.testing.expectEqual;
 
-// There are no exceptions in Zig - errors are values! This is an error set, a commonly used pattern.
+// An error set is very similar to an enum:
 const FileOpenError = error{
     AccessDenied,
     OutOfMemory,
     FileNotFound,
 };
 
+// They can also have just one item:
 const AllocationError = error{OutOfMemory};
 
-test "coerce error from a subset to a superset" {
-    // Since `AllocationError` is a subset of `FileOpenError`, it can coerce to the `FileOpenError` type.
+test "coercing error sets" {
+    // Since `AllocationError` is a subset of `FileOpenError`, it
+    // can coerce to the `FileOpenError` type.
     const err: FileOpenError = AllocationError.OutOfMemory;
     try expectEqual(FileOpenError.OutOfMemory, err);
-}
 
-test "error union" {
-    // Error unions are Zig's way of encapsulating possible error states in fallible functions.
-    const maybe_error: AllocationError!u16 = 10;
-    // By using catch (similar to `unwrap*` in other languages), you can react to these error states.
-    // In this example, we are returning a default value, but you can also use a value of type
-    // `noreturn` (the type of `return`, `while(true)`, and others).
-    const no_error = maybe_error catch 0;
-
-    try expectEqual(u16, @TypeOf(no_error));
-    try expectEqual(10, no_error);
-}
-
-// returning an error
-
-fn fallibleFunction() error{NotSure}!void {
-    return error.NotSure;
-}
-
-test "returning an error" {
-    // Here, we use `catch` to capture a fallible function's error value (if present).
-    // The `|err|` syntax is called "payload capturing", and is used in many other places.
-    fallibleFunction() catch |err| {
-        try expectEqual(error.NotSure, err);
-        return;
-    };
-}
-
-// try
-
-fn failFn() error{NotSure}!u32 {
-    try fallibleFunction();
-    return 42;
-}
-
-test "try" {
-    const v = failFn() catch |err| {
-        try expectEqual(error.NotSure, err);
-        return;
-    };
-    // This will never be reached because `fallibleFunction` always return an error.
+    // Coercing from a superset to a subset is not allowed, however.
+    // If the comments below are removed, this will fail to compile.
     //
-    // Another interesting thing to note is the signature of this testing function
-    // that we've been using, `expectEqual`, also returns an error union due to the
-    // usage of `try`:
-    //
-    //     fn expectEqual(...) !void {}
-    //
-    try expectEqual(1, v);
+    // const err2: AllocationError = FileOpenError.OutOfMemory;
+    // _ = err2;
 }
 
-// errdefer
+const SystemError = FileOpenError || AllocationError;
 
-var dogs: u32 = 100;
-
-fn failFnCounter() error{NotSure}!void {
-    errdefer dogs += 1;
-    try fallibleFunction();
+test "merging error sets" {
+    // As before, the subset `AllocationError` can also coerce
+    // to the superset of `SystemError`.
+    const err: SystemError = AllocationError.OutOfMemory;
+    try expectEqual(SystemError.OutOfMemory, err);
 }
 
-test "errdefer" {
-    failFnCounter() catch |err| {
-        try expectEqual(error.NotSure, err);
-        try expectEqual(101, dogs);
-        return;
-    };
+test "error unions" {
+    // An error union is like a burrito, where you have to unwrap it
+    // to get to the stuff inside; it can either be good (some data),
+    // or bad (an error), and it's up to you to deal with it:
+    const burrito: AllocationError!u16 = 10;
+
+    // In Zig, `catch` is how you unwrap that burrito. Here we are
+    // returning a default value, but you can also use a value of
+    // type `noreturn` (the type of `return`, `while (true)`, etc.)
+    const unburrito = burrito catch 0;
+
+    // Our burrito is nothing but good inside:
+    try expectEqual(10, unburrito);
 }
 
-// inferred error sets
-
+// Omit the error set in a function return type to let it be inferred:
 fn createFile() !void {
-    return error.StillNotSure;
+    return error.OutOfMemory;
 }
 
 test "inferred error set" {
     // Type coercion successfully takes place
-    const x: error{StillNotSure}!void = createFile();
+    const x: AllocationError!void = createFile();
 
-    // In order to ignore error unions, you must also unwrap it by any means (`try`, `catch`, etc.).
+    // In order to ignore error unions, it must also be unwrapped
+    // using `try`, `catch`, or `if`
     _ = x catch {};
 }
 
-// merging error sets
+test "try" {
+    const burrito: error{NotGood}!u8 = 42;
 
-const SomeErr = error{ NotDir, PathNotFound };
-const OtherErr = error{ OutOfMemory, PathNotFound };
+    // Using `try` is like assuming that your burrito is fine and
+    // eating the whole thing, no matter the consequences:
+    const unburrito = try burrito;
 
-// Error sets can be merged using the `||` operator.
-const BigErr = SomeErr || OtherErr;
+    // If that had been an error instead, the program would panic and
+    // this code would never be reached:
+    try expectEqual(42, unburrito);
+}
 
-test "merging error sets" {
-    // As before, the subset `SomeErr` can also coerce to the superset `BigErr`.
-    const err: BigErr = SomeErr.PathNotFound;
+var fail_count: u8 = 0;
 
-    try expectEqual(BigErr.PathNotFound, err);
+fn fail() error{Failed}!void {
+    // If an error is returned past this point, the statement after
+    // the `errdefer` keyword will be evaluated before execution
+    // returns to the caller of this function.
+    errdefer fail_count += 1;
+
+    // Go figure, it didn't work. Now, the `errdefer` above will be
+    // evaluated, and then the error will finally be returned.
+    return error.Failed;
+}
+
+test "errdefer" {
+    fail() catch {
+        // Since the `errdefer` statement above has been evaulated
+        // by this point,
+        try expectEqual(1, fail_count);
+        return;
+    };
 }

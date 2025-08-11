@@ -8,7 +8,7 @@ jobs:
     name: Sync Zig versions across codebase
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: DeterminateSystems/nix-installer-action@v13
       - uses: DeterminateSystems/magic-nix-cache-action@v7
       - name: Compare Zig versions

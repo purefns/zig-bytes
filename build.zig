@@ -17,7 +17,7 @@ const print = std.debug.print;
 
 comptime {
     // NOTE: keep this in sync with 'flake.nix'
-    const required_zig = "0.13.0";
+    const required_zig = "0.15.1";
     const current_zig = builtin.zig_version;
     const min_zig = std.SemanticVersion.parse(required_zig) catch unreachable;
     if (current_zig.order(min_zig) == .lt) {
